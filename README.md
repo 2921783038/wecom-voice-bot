@@ -92,3 +92,7 @@ python3 wecom_server.py           # 默认 127.0.0.1:18114
 ## License
 
 MIT
+
+---
+
+如果这个项目帮到你，点个 ⭐ Star 支持一下。
