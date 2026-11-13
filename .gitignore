@@ -1,0 +1,40 @@
+# 密钥与运行时配置
+.env
+.env.*
+!.env.example
+gw.json
+panel.json
+config.json
+credentials.json
+*.token
+operator.token
+
+# 运行时数据
+state/
+trips.jsonl
+logs/
+*.log
+media/
+models/
+*.amr
+*.wav
+*.mp3
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.db
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,15 @@
+﻿[Unit]
+Description=WeCom callback server for Luci
+After=network.target
+
+[Service]
+User=YOUR_USER
+WorkingDirectory=/opt/wecom
+ExecStart=/usr/bin/python3 /opt/wecom/wecom_server.py
+Restart=always
+RestartSec=3
+StandardOutput=append:/opt/wecom/stdout.log
+StandardError=append:/opt/wecom/stdout.log
+
+[Install]
+WantedBy=multi-user.target
