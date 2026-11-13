@@ -58,6 +58,36 @@ python3 wecom_server.py           # 默认 127.0.0.1:18114
 | 静默阈值 | `gap < 25` | 25 分钟 |
 | 活跃时段 | `8 <= lt.tm_hour < 23` | 8–23 点 |
 
+## 自主发图
+
+和表情包同一套思路：**画不画由模型自己判断**，不是关键词触发。
+
+- 你说「看看你的猫」「画一个下雨的窗」，或者它自己想分享一个画面 → 回复里带 `[图] 具体描述`
+- 服务端异步生成，先发文字、图随后到，不阻塞对话
+- 每天最多 3 张；失败只写日志，不会在聊天里报错
+- 渠道按 `config.json` 的 `images` 列表依次尝试，第一个失败自动换下一个
+
+`config.json` 加一段（示例是 agnes）：
+
+```json
+"images": [
+  {
+    "provider": "agnes",
+    "url": "https://api.agnes-ai.cn/v1/images/generations",
+    "model": "agnes-image-2.5-flash",
+    "key": "sk-...",
+    "size": "1024x1024"
+  }
+]
+```
+
+两处容易踩：
+
+- 域名是 `api.agnes-ai.cn`，不是 `apihub.agnes-ai.cn`（后者会返回 `401 Invalid token`）
+- 接口返回 `{"data":[{"url":"https://cos-...png"}]}`，服务端会再下载一次；也支持 `b64_json` 直出
+
+不配置 `images` 时功能自动关闭，`[图]` 会被当作普通文本清理掉。
+
 ## 语音链路
 
 ```
